@@ -1,0 +1,12 @@
+name: weather_data
+config:
+  location_hourly: "41.5868,93.6250"
+  units_hourly: "imperial"
+  timesteps_hourly: 1h
+  location_daily: "41.5868,93.6250"
+  units_daily: "imperial"
+  timesteps_daily: 1d
+schedule:
+  run_seconds: 3600
+  poll_seconds: 360
+

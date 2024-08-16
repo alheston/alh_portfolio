@@ -1,0 +1,35 @@
+version: 2
+
+sources:
+  - name: etl
+    description: "base tables from staging layer"
+    database: etl 
+    schema: TRANSFORMATIONS
+
+models:
+  - name: stg_hourly_des_moines_weather
+    description: "Hourly weather data for Des Moines"
+    columns:
+      - name: time
+        description: "Timestamp of the weather observation"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_unique
+
+  - name: stg_daily_des_moines_weather
+    description: "daily weather data for Des Moines"
+    columns:
+      - name: time
+        description: "Timestamp of the weather observation"
+        tests:
+          - dbt_expectations.expect_column_to_exist
+          - dbt_expectations.expect_column_values_to_be_unique
+
+  - name: weather_code_dim
+    description: "weather code mapping for daily conditions"
+    columns:
+      - name: weathercode
+        description: "numeric identifier for each unique condition, i.e cloudy, partly cloud etc"
+        tests:
+          - accepted_values:
+              values: ['0', '1000','1100','1101','1102','1001','2000','2100','4000','4001','4200','4201','5000','5001','5100','5101','6000','6001','6200','6201','7000','7101','7102','8000']

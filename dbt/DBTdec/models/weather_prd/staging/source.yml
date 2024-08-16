@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: etl
+    description: "raw postgres data"
+    database: etl 
+    schema: weather
+    tables:
+      - name: des_moines_weather_hourly
+      - name: des_moines_weather_daily

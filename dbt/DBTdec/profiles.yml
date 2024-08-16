@@ -1,0 +1,31 @@
+
+# cloud config
+# weather_prd:
+#   target: dev
+#   outputs:
+#     dev:
+#       account: kdb58670.us-east-1
+#       database: etl
+#       password: '{{ env_var("SNOWFLAKE_PASSWORD") }}'
+#       role: accountadmin
+#       schema: transformations
+#       threads: 12
+#       type: snowflake
+#       user: '{{ env_var("SNOWFLAKE_USERNAME") }}'
+#       warehouse: xsmall_wh
+#   target: dev
+
+weather_prd:
+  target: dev
+  outputs:
+    dev:
+      account: kdb58670.us-east-1
+      database: etl
+      password: Josephinerea2023!
+      role: accountadmin
+      schema: transformations
+      threads: 12
+      type: snowflake
+      user: alhestondec
+      warehouse: xsmall_wh
+  target: dev
