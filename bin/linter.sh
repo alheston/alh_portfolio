@@ -18,7 +18,6 @@ main() {
 
     # Lint and fix SQL files with sqlfluff
     echo "Linting SQL files with sqlfluff..."
-    sqlfluff lint "${TOP_DIR}/dbt/DBTdec" --verbose
     sqlfluff fix -f "${TOP_DIR}/dbt/DBTdec" --verbose
 
     # Check for uncommitted changes
