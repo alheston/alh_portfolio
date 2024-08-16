@@ -1,0 +1,47 @@
+name: linter
+
+on:
+  workflow_dispatch: {}
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    container:
+      image: python:3.9-bookworm
+
+    steps:
+      - name: Checkout code repository in agent
+        uses: actions/checkout@v4
+        with:
+          set-safe-directory: true
+
+      - name: Set ownership
+        run: |
+          chown -R $(id -u):$(id -g) $PWD
+
+      - name: Set up python
+        uses: actions/setup-python@v4
+        with:
+          python-version: 3.9
+
+      - name: Install Python dependencies
+        run: |
+          pip install --upgrade pip
+          pip install sqlfluff sqlfluff-templater-dbt snowflake-connector-python black
+
+      - name: Set up Snowflake environment variables
+        run: echo "Setting up Snowflake environment variables"
+        env:
+          SNOWFLAKE_USER: ${{ secrets.SNOWFLAKE_USER }}
+          SNOWFLAKE_PASSWORD: ${{ secrets.SNOWFLAKE_PASSWORD }}
+          SNOWFLAKE_ACCOUNT: ${{ secrets.SNOWFLAKE_ACCOUNT }}
+          SNOWFLAKE_WAREHOUSE: ${{ secrets.SNOWFLAKE_WAREHOUSE }}
+          SNOWFLAKE_DATABASE: ${{ secrets.SNOWFLAKE_DATABASE }}
+          SNOWFLAKE_SCHEMA: ${{ secrets.SNOWFLAKE_SCHEMA }}
+          SNOWFLAKE_ROLE: ${{ secrets.SNOWFLAKE_ROLE }}
+
+      - name: Run linting checks. Exit code 1 if linter failed
+        run: |
+          bash ./bin/linter.sh
