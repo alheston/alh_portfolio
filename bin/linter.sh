@@ -18,7 +18,8 @@ main() {
 
     # Lint and fix SQL files with sqlfluff
     echo "Linting SQL files with sqlfluff..."
-    sqlfluff fix -f "${TOP_DIR}/dbt/DBTdec"
+    sqlfluff lint "${TOP_DIR}/dbt/DBTdec" --verbose
+    sqlfluff fix -f "${TOP_DIR}/dbt/DBTdec" --verbose
 
     # Check for uncommitted changes
     if [ -z "$(git status --porcelain)" ]; then 
