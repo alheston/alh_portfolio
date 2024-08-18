@@ -83,34 +83,64 @@ The high level workflow includes:
      sudo usermod -a -G docker $USER
      ```
 
-   D) Manually install Docker Compose
-   E) Reference: https://docs.docker.com/compose/install/linux/#install-the-plugin-manually
-   DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-   mkdir -p $DOCKER_CONFIG/cli-plugins
-   curl -SL https://github.com/docker/compose/releases/download/v2.24.2/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
-   chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
-   docker compose version
+  ### **D) Manually Install Docker Compose**
 
-   F) Logout of the instance
-   exit
+1. **Reference:** [Docker Compose Installation Documentation](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
 
-   G) Download and run Airbyte
-   mkdir airbyte && cd airbyte
-   wget https://raw.githubusercontent.com/airbytehq/airbyte/master/run-ab-platform.sh
-   chmod +x run-ab-platform.sh
-   ./run-ab-platform.sh -b
+2. **Install Docker Compose:**
+   - Run the following commands to manually install Docker Compose:
 
-   **Deploying Dagster to your ec2**
-   A) SSH or connect via AWS UI and run the following code below
-   - Scaffold new dagster project ([taken from here](https://docs.dagster.io/getting-started/create-new-project#step-1-bootstrap-a-new-project)).
-   
-   **AWS RDS/Postgres**
-   - create instance using the latest Postgres engine (16.3)
-   - ensure database instance is under the same VPC as your ec2 instance.
-   - Optional: create parameter group to enable logical replication for CDC enabled syncs from postgres to snowflake
-   
-   **Monitor and Scale**:
-   - Use CloudWatch to monitor ECS task execution and set up alerts for any issues.
+     ```bash
+     DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+     mkdir -p $DOCKER_CONFIG/cli-plugins
+     curl -SL https://github.com/docker/compose/releases/download/v2.24.2/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+     chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+     docker compose version
+     ```
+
+### **E) Logout of the Instance**
+
+1. **Exit the EC2 Instance:**
+   - Run the following command to logout of the instance:
+
+     ```bash
+     exit
+     ```
+
+### **F) Download and Run Airbyte**
+
+1. **Set Up Airbyte:**
+   - Run the following commands to download and start Airbyte:
+
+     ```bash
+     mkdir airbyte && cd airbyte
+     wget https://raw.githubusercontent.com/airbytehq/airbyte/master/run-ab-platform.sh
+     chmod +x run-ab-platform.sh
+     ./run-ab-platform.sh -b
+     ```
+
+### **Deploying Dagster to Your EC2 Instance**
+
+1. **SSH or Connect via AWS UI:**
+   - Run the following code to start the process of deploying Dagster:
+
+     ```bash
+     # Add your specific commands for deploying Dagster here, 
+     # starting with scaffolding a new Dagster project.
+     ```
+
+### **AWS RDS/Postgres**
+
+1. **Create an RDS Instance:**
+   - **Postgres Engine:** Use the latest Postgres engine (16.3).
+   - **VPC Configuration:** Ensure the database instance is under the same VPC as your EC2 instance.
+   - **Optional:** Create a parameter group to enable logical replication for CDC-enabled syncs from Postgres to Snowflake.
+
+### **Monitor and Scale**
+
+1. **Monitor ECS Tasks:**
+   - Use CloudWatch to monitor ECS task execution.
+   - Set up alerts for any issues.
+
+2. **Scale ECS Service:**
    - Scale the ECS service as needed based on the load and frequency of the ETL runs.
-
-
