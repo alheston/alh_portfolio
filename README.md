@@ -82,8 +82,7 @@ The high level workflow includes:
      ```bash
      sudo usermod -a -G docker $USER
      ```
-
-  ### **D) Manually Install Docker Compose**
+#### **D) Manually Install Docker Compose**
 
 1. **Reference:** [Docker Compose Installation Documentation](https://docs.docker.com/compose/install/linux/#install-the-plugin-manually)
 
@@ -98,7 +97,7 @@ The high level workflow includes:
      docker compose version
      ```
 
-### **E) Logout of the Instance**
+#### **E) Logout of the Instance**
 
 1. **Exit the EC2 Instance:**
    - Run the following command to logout of the instance:
@@ -107,7 +106,7 @@ The high level workflow includes:
      exit
      ```
 
-### **F) Download and Run Airbyte**
+#### **F) Download and Run Airbyte**
 
 1. **Set Up Airbyte:**
    - Run the following commands to download and start Airbyte:
@@ -119,7 +118,7 @@ The high level workflow includes:
      ./run-ab-platform.sh -b
      ```
 
-### **Deploying Dagster to Your EC2 Instance**
+#### **Deploying Dagster to Your EC2 Instance**
 
 1. **SSH or Connect via AWS UI:**
    - Run the following code to start the process of deploying Dagster:
@@ -129,14 +128,14 @@ The high level workflow includes:
      # starting with scaffolding a new Dagster project.
      ```
 
-### **AWS RDS/Postgres**
+#### **AWS RDS/Postgres**
 
 1. **Create an RDS Instance:**
    - **Postgres Engine:** Use the latest Postgres engine (16.3).
    - **VPC Configuration:** Ensure the database instance is under the same VPC as your EC2 instance.
    - **Optional:** Create a parameter group to enable logical replication for CDC-enabled syncs from Postgres to Snowflake.
 
-### **Monitor and Scale**
+#### **Monitor and Scale**
 
 1. **Monitor ECS Tasks:**
    - Use CloudWatch to monitor ECS task execution.
