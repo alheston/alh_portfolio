@@ -13,10 +13,6 @@ main() {
     echo "Installing dbt dependencies..."
     dbt deps --project-dir "${TOP_DIR}/dbt/DBTdec"
 
-    echo "Linting SQL files with sqlfluff..."
-    sqlfluff lint "${TOP_DIR}/dbt/DBTdec" --verbose || true
-
-    # Attempt to fix fixable violations
     echo "Attempting to fix SQL linting violations..."
     sqlfluff fix -f "${TOP_DIR}/dbt/DBTdec" --verbose || true
 
