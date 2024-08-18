@@ -14,7 +14,7 @@ main() {
     dbt deps --project-dir "${TOP_DIR}/dbt/DBTdec"
 
     echo "Linting SQL files with sqlfluff..."
-    sqlfluff fix -f "${TOP_DIR}/dbt/DBTdec" --verbose || echo "sqlfluff encountered issues but continuing..."
+    sqlfluff fix -f "${TOP_DIR}/dbt/DBTdec" --verbose || true
 
     if [ -z "$(git status --porcelain)" ]; then 
         echo "Working directory clean, linting passed."
