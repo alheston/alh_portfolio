@@ -33,27 +33,55 @@ The high level workflow includes:
    - Create images of the subfolders for each respective workflow (DBT, ETL). (example dockerfiles in each workflow folder, ensure build architecture of image is compatible with ec2 instance infrastructure)
    - Create Amazon ECR repositories for both workflows and subsequently push the images into their respective repository.
   
-3. **Set Up AWS Infrastructure**:
-   **ECS** 
-   - Create an ECS cluster if you don't already have one. For this project we are using Fargate to provide compute resources so to not overload our ec2 instance supporting airbyte and dagster.
-   - Define a task definition that references each image.
+### 3. **Set Up AWS Infrastructure**
+
+#### **ECS (Elastic Container Service)**
+
+1. **Create an ECS Cluster:**
+   - If you don't already have an ECS cluster, create one. 
+   - For this project, we are using Fargate to provide compute resources, which helps avoid overloading the EC2 instance that supports Airbyte and Dagster.
+
+2. **Define a Task Definition:**
+   - Create a task definition that references each Docker image you intend to use.
    - Define container override environment variables as needed.
-   - Create log groups for each task definition to monitor workflow logging during runtime.
-   **EC2**
-   - Create an ec2 instance (this project uses a t2.Large instance type built with the AMD64 architecture)
-   - Define inbound rules so that all tools being deployed within the same VPC can communicate with each other. Although not recommended for security we have a customer TCP inbound rule allowing traffic for following port range 0 - 65535
-   **Deploying Airbyte to your ec2**
-   A) Install Docker
-   - Reference: https://docs.airbyte.com/deploying-airbyte/on-aws-ec2
-   - SSH or connect via AWS UI and run the following code below
-   sudo yum update -y
-   sudo yum install -y docker
 
-   B) Start the Docker service
-   sudo service docker start
+3. **Create Log Groups:**
+   - Set up log groups for each task definition to monitor workflow logging during runtime.
 
-   C) Add the current user to the Docker group
-   sudo usermod -a -G docker $USER
+#### **EC2 (Elastic Compute Cloud)**
+
+1. **Create an EC2 Instance:**
+   - This project uses a t2.large instance type built with the AMD64 architecture.
+
+2. **Define Inbound Rules:**
+   - Define inbound rules so that all tools being deployed within the same VPC can communicate with each other.
+   - **Note:** Although it is not recommended for security reasons, we have a custom TCP inbound rule allowing traffic for the following port range: 0 - 65535.
+
+#### **Deploying Airbyte to Your EC2 Instance**
+
+1. **Install Docker:**
+   - Reference: [Airbyte Documentation for AWS EC2 Deployment](https://docs.airbyte.com/deploying-airbyte/on-aws-ec2)
+   - SSH into your EC2 instance or connect via the AWS UI.
+   - Run the following commands:
+
+     ```bash
+     sudo yum update -y
+     sudo yum install -y docker
+     ```
+
+2. **Start the Docker Service:**
+   - Run the following command to start the Docker service:
+
+     ```bash
+     sudo service docker start
+     ```
+
+3. **Add the Current User to the Docker Group:**
+   - Run the following command to add the current user to the Docker group:
+
+     ```bash
+     sudo usermod -a -G docker $USER
+     ```
 
    D) Manually install Docker Compose
    E) Reference: https://docs.docker.com/compose/install/linux/#install-the-plugin-manually
