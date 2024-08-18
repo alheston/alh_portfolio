@@ -26,7 +26,7 @@ The high level workflow includes:
 - **Dagster**: Orchestrator used to manage the ETL pipeline and schedule tasks.
 - **Evidence**: Semantic layer for visualization.
 
-![Pipeline Architecture](pipelineArchitecture.png)
+![Pipeline Architecture](pipeline.png)
 
 ## How to Deploy into Production
 1. **Dockerize the ETL and DBT workflow**:
