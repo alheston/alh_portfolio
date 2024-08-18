@@ -41,37 +41,37 @@ The high level workflow includes:
    - Create an ec2 instance (this project uses a t2.Large instance type built with the AMD64 architecture)
    - Define inbound rules so that all tools being deployed within the same VPC can communicate with each other. Although not recommended for security we have a customer TCP inbound rule allowing traffic for following port range 0 - 65535
    **Deploying Airbyte to your ec2**
-   # Install Docker
-   # Reference: https://docs.airbyte.com/deploying-airbyte/on-aws-ec2
-   # SSH or connect via AWS UI and run the following code below
+   A) Install Docker
+   - Reference: https://docs.airbyte.com/deploying-airbyte/on-aws-ec2
+   - SSH or connect via AWS UI and run the following code below
    sudo yum update -y
    sudo yum install -y docker
 
-   # Start the Docker service
+   B) Start the Docker service
    sudo service docker start
 
-   # Add the current user to the Docker group
+   C) Add the current user to the Docker group
    sudo usermod -a -G docker $USER
 
-   # Manually install Docker Compose
-   # Reference: https://docs.docker.com/compose/install/linux/#install-the-plugin-manually
+   D) Manually install Docker Compose
+   E) Reference: https://docs.docker.com/compose/install/linux/#install-the-plugin-manually
    DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
    mkdir -p $DOCKER_CONFIG/cli-plugins
    curl -SL https://github.com/docker/compose/releases/download/v2.24.2/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
    chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
    docker compose version
 
-   # Logout of the instance
+   F) Logout of the instance
    exit
 
-   # Download and run Airbyte
+   G) Download and run Airbyte
    mkdir airbyte && cd airbyte
    wget https://raw.githubusercontent.com/airbytehq/airbyte/master/run-ab-platform.sh
    chmod +x run-ab-platform.sh
    ./run-ab-platform.sh -b
 
    **Deploying Dagster to your ec2**
-   # SSH or connect via AWS UI and run the following code below
+   A) SSH or connect via AWS UI and run the following code below
    - Scaffold new dagster project ([taken from here](https://docs.dagster.io/getting-started/create-new-project#step-1-bootstrap-a-new-project)).
    
    **AWS RDS/Postgres**
