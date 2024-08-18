@@ -1,6 +1,9 @@
 from sqlalchemy import create_engine, Table, MetaData, text
 from sqlalchemy.engine import URL, CursorResult
 from sqlalchemy.dialects import postgresql
+from sqlalchemy import func
+import pandas as pd
+
 
 
 class PostgresClient:
@@ -60,9 +63,10 @@ class PostgresClient:
         key_columns = [
             pk_column.name for pk_column in table.primary_key.columns.values()
         ]
-        print(f"Key columns: {key_columns}")  # Debug print
+        print(f"Key columns: {key_columns}")  
         print(f"Data: {data}") 
         insert_statement = postgresql.insert(table).values(data)
+        print(insert_statement)
         upsert_statement = insert_statement.on_conflict_do_update(
             index_elements = key_columns,
             set_ = {
@@ -72,5 +76,7 @@ class PostgresClient:
         print(f"Upsert statement: {upsert_statement}") 
         with self.engine.connect() as conn:
             conn.execute(upsert_statement)
+
+
 
         
