@@ -4,9 +4,9 @@
     )
 }}
 
-select 
+select
     time,
     sunrisetime,
     sunsettime,
-    'DesMoines' as City
+    'DesMoines' as city
 from {{ source('etl', 'des_moines_weather_daily') }}
